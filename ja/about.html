@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>会社概要 — SlopAI inc.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .about-hero { min-height: 65vh; display: flex; align-items: flex-end; background-size: cover; background-position: center; position: relative; }
+    .about-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(8,8,8,0.4) 0%, rgba(8,8,8,0.75) 55%, rgba(8,8,8,1) 100%); }
+    .about-hero-text { position: relative; z-index: 1; padding: 0 5vw 5rem; max-width: 860px; }
+    .about-hero-text h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 4.8rem); font-weight: 300; line-height: 1.2; color: var(--warm-white); margin-bottom: .75rem; }
+    .about-hero-text .sub { font-family: var(--font-display); font-style: italic; font-size: 1.1rem; color: var(--gold); }
+
+    .stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--gold-line); gap: 1px; border-bottom: 1px solid var(--gold-line); }
+    .stat-cell { background: var(--obsidian); padding: 2.5rem 2rem; text-align: center; border-right: 1px solid var(--gold-line); }
+    .stat-cell:last-child { border-right: none; }
+    .stat-val { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: .4rem; }
+    .stat-lbl { font-size: .62rem; letter-spacing: .12em; color: var(--text-muted); }
+
+    .manifesto { background: var(--obsidian); padding: 100px 0; border-bottom: 1px solid var(--gold-line); }
+    .manifesto-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; align-items: start; }
+    .manifesto-left h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 3rem); font-weight: 300; line-height: 1.4; color: var(--warm-white); margin-bottom: 2rem; }
+    .manifesto-left p { font-size: .88rem; color: var(--text-body); line-height: 1.95; margin-bottom: 1.4rem; }
+    .manifesto-left blockquote { margin-top: 2.5rem; padding-left: 1.5rem; border-left: 2px solid var(--gold); font-family: var(--font-display); font-style: italic; font-size: 1.1rem; color: var(--warm-white); line-height: 1.7; }
+
+    .principles { display: flex; flex-direction: column; gap: 1px; background: var(--gold-line); border: 1px solid var(--gold-line); }
+    .principle-item { background: var(--dark); padding: 2rem 2.5rem; transition: background .25s; }
+    .principle-item:hover { background: var(--dark2); }
+    .principle-num { font-family: 'Cormorant Garamond', serif; font-size: .75rem; color: var(--gold); letter-spacing: .15em; margin-bottom: .6rem; }
+    .principle-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 500; color: var(--warm-white); margin-bottom: .45rem; line-height: 1.5; }
+    .principle-body { font-size: .82rem; color: var(--text-body); line-height: 1.9; }
+
+    .timeline-section { background: var(--dark); padding: 100px 0; border-bottom: 1px solid var(--gold-line); }
+    .timeline-section h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 300; color: var(--warm-white); margin-bottom: 3rem; }
+    .timeline { display: flex; flex-direction: column; gap: 0; border-left: 1px solid var(--gold-line); margin-left: 1rem; }
+    .tl-item { display: grid; grid-template-columns: 100px 1fr; gap: 2rem; padding: 2rem 0 2rem 2.5rem; position: relative; border-bottom: 1px solid var(--gold-line); }
+    .tl-item:last-child { border-bottom: none; }
+    .tl-item::before { content: ''; position: absolute; left: -5px; top: 2.5rem; width: 9px; height: 9px; border-radius: 50%; background: var(--gold); }
+    .tl-year { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 400; color: var(--gold); padding-top: .1rem; }
+    .tl-event h3 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 500; color: var(--warm-white); margin-bottom: .4rem; }
+    .tl-event p { font-size: .82rem; color: var(--text-body); line-height: 1.85; }
+
+    .leadership-section { background: var(--obsidian); padding: 100px 0; border-bottom: 1px solid var(--gold-line); }
+    .leadership-section h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 300; color: var(--warm-white); margin-bottom: 3rem; }
+    .leadership-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--gold-line); border: 1px solid var(--gold-line); }
+    .leader-card { background: var(--obsidian); padding: 2.5rem; transition: background .25s; }
+    .leader-card:hover { background: var(--dark2); }
+    .leader-initial { width: 56px; height: 56px; border: 1px solid var(--gold-line); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 1.5rem; color: var(--gold); margin-bottom: 1.25rem; }
+    .leader-name { font-family: var(--font-display); font-size: 1.1rem; font-weight: 500; color: var(--warm-white); margin-bottom: .25rem; }
+    .leader-title { font-size: .62rem; letter-spacing: .12em; color: var(--gold); margin-bottom: 1rem; }
+    .leader-bio { font-size: .8rem; color: var(--text-body); line-height: 1.85; }
+
+    .ceo-section { background: var(--black); border-top: 1px solid var(--gold-line); padding: 100px 0; }
+    .ceo-inner { max-width: 760px; margin: 0 auto; text-align: center; }
+    .ceo-quote { font-family: var(--font-display); font-style: italic; font-size: clamp(1.4rem, 2.5vw, 2.2rem); font-weight: 300; color: var(--warm-white); line-height: 1.55; margin-bottom: 2.5rem; }
+    .ceo-quote em { color: var(--gold); font-style: normal; }
+    .ceo-attr { font-size: .72rem; letter-spacing: .12em; color: var(--text-muted); }
+    .ceo-attr strong { display: block; font-weight: 500; color: var(--gold); font-size: .8rem; margin-bottom: .2rem; }
+
+    @media(max-width:900px){ .manifesto-grid{grid-template-columns:1fr;gap:48px} .stats-bar{grid-template-columns:repeat(2,1fr)} .leadership-grid{grid-template-columns:1fr 1fr} }
+    @media(max-width:600px){ .leadership-grid{grid-template-columns:1fr} .tl-item{grid-template-columns:1fr;padding-left:2rem} }
+  </style>
+</head>
+<body>
+  <header id="nav" class="solid">
+    <a href="index.html"><img id="nav-logo" alt="SlopAI"><span id="nav-logo-fallback">SlopAI inc.</span></a>
+    <nav><ul>
+      <li><a href="index.html">ホーム</a></li>
+      <li><a href="about.html" class="active">会社概要</a></li>
+      <li><a href="products.html">製品</a></li>
+      <li><a href="ir.html">IR</a></li>
+      <li><a href="careers.html">採用</a></li>
+      <li><a href="contact.html">お問い合わせ</a></li>
+    </ul></nav>
+  </header>
+
+  <div class="about-hero" id="about-hero">
+    <div class="about-hero-text">
+      <div class="section-label">SlopAI inc. について</div>
+      <h1>私たちはAIラボではない。<br>デプロイメントの<br>君主制だ。</h1>
+      <p class="sub">まず出す。説明は後。</p>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-cell reveal"><div class="stat-val">$5T</div><div class="stat-lbl">時価総額</div></div>
+    <div class="stat-cell reveal"><div class="stat-val">8000%</div><div class="stat-lbl">前年比成長率</div></div>
+    <div class="stat-cell reveal"><div class="stat-val">0秒</div><div class="stat-lbl">平均意思決定時間</div></div>
+    <div class="stat-cell reveal"><div class="stat-val">∞</div><div class="stat-lbl">デプロイ待ち件数</div></div>
+  </div>
+
+  <section class="manifesto">
+    <div class="container">
+      <div class="manifesto-grid">
+        <div class="manifesto-left reveal">
+          <div class="section-label">企業マニフェスト</div>
+          <div class="gold-line"></div>
+          <h2>完璧を待つことを<br>拒否する。</h2>
+          <p>SlopAI inc.はひとつのシンプルな拒絶の上に建てられた。完璧を待つことの拒絶だ。</p>
+          <p>従来のAI企業がリスクをモデル化し、前提を検証し、委員会のスケジュールを調整している間、SlopAIはデプロイする。私たちのシステムは確信の一瞬前——会議が終わる一秒前、顧客が問い終える瞬間の前——に向けて設計されている。</p>
+          <p>スピードは機能ではない。スピードは複利で積み上がる唯一の原則だ。市場のあらゆる躊躇がデプロイの機会になる。あらゆる委員会が対処可能な摩擦になる。あらゆる未完成のアイデアが収益に隣接するモメンタムになる。</p>
+          <p>私たちは世界が準備できるのを待つAIを作らない。世界がまだ問いを立てていないうちにデプロイするAIを作る。</p>
+          <blockquote>「品質はローンチ後の部署だ。私たちはこれと折り合いをつけた。」</blockquote>
+        </div>
+        <div class="principles reveal">
+          <div class="principle-item">
+            <div class="principle-num">原則 I</div>
+            <div class="principle-title">スピードだけが複利で積み上がるKPIだ。</div>
+            <p class="principle-body">他のすべての指標は速度の下流にある。精度、安全性、安定性——これらはローンチ後の最適化対象だ。</p>
+          </div>
+          <div class="principle-item">
+            <div class="principle-num">原則 II</div>
+            <div class="principle-title">バグはローンチ後の情報だ。</div>
+            <p class="principle-body">他社が失敗と呼ぶものを、私たちはリアルタイムフィードバックと呼ぶ。市場は、いかなる社内プロセスよりも速いスケールでQAを提供する。</p>
+          </div>
+          <div class="principle-item">
+            <div class="principle-num">原則 III</div>
+            <div class="principle-title">あらゆる躊躇は対処可能な摩擦だ。</div>
+            <p class="principle-body">慎重さはひとつの市場ポジションだ。SlopAIは、いまだコンセンサスを待ち続けるすべての組織が残した空間を占有する。</p>
+          </div>
+          <div class="principle-item">
+            <div class="principle-num">原則 IV</div>
+            <div class="principle-title">チャートはすでに決断を下した。</div>
+            <p class="principle-body">将来予測はすでにデプロイ済みだ。軌跡は予測ではない——まだ到着していない事実だ。</p>
+          </div>
+          <div class="principle-item">
+            <div class="principle-num">原則 V</div>
+            <div class="principle-title">委員会なし。躊躇なし。ローンチのみ。</div>
+            <p class="principle-body">意思決定速度はコアインフラへの投資だ。排除されるガバナンスレイヤーのたびに、デプロイサイクルが一つ生まれる。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="timeline-section">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">会社の歴史</div>
+        <div class="gold-line"></div>
+        <h2>デプロイの簡潔な歴史。</h2>
+      </div>
+      <div class="timeline reveal">
+        <div class="tl-item">
+          <div class="tl-year">2021</div>
+          <div class="tl-event">
+            <h3>創業</h3>
+            <p>「デプロイは準備より重要」という原則のもとSlopAI inc.設立。登記から4時間後に最初の製品をリリース。法務レビューは2027年Q3に予定。</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2022</div>
+          <div class="tl-event">
+            <h3>初の企業契約</h3>
+            <p>製品が存在する前に、Fortune500企業と4億ドルの企業契約を締結。製品は3週間後にリリース。クライアントへの通知はその2週間後。</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2023</div>
+          <div class="tl-event">
+            <h3>時価総額1兆ドル</h3>
+            <p>時価総額1兆ドルを達成。アナリストは「時期尚早」と評した。SlopAIはそれを「プレローンチ」と呼んだ。どちらも技術的には正しかった。SlopAIの方が速かった。</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2024</div>
+          <div class="tl-event">
+            <h3>6製品ローンチ</h3>
+            <p>SlopChat、DeckFotge、ReplyFast、MeetingSlop、VisionMaybe、InfiniteDraftの6製品を一つの四半期でローンチ。QAは翌四半期に開始。</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2025</div>
+          <div class="tl-event">
+            <h3>規制当局との対話開始</h3>
+            <p>47の規制市場にデプロイした後、SlopAIは自発的に規制当局との対話を開始。対話は現在も継続中。デプロイはその間も続いた。</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2026</div>
+          <div class="tl-event">
+            <h3>時価総額5兆ドル。前年比8000%成長。</h3>
+            <p>チャートが決断を下した。コンセンサスが生まれる前にデプロイした。コンセンサスはそれに続いた。ティッカー：SLLLLLLLOP。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="leadership-section">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">経営陣</div>
+        <div class="gold-line"></div>
+        <h2>デプロイメント評議会。</h2>
+      </div>
+      <div class="leadership-grid reveal">
+        <div class="leader-card">
+          <div class="leader-initial">S</div>
+          <div class="leader-name">Sovereign Deployé</div>
+          <div class="leader-title">最高デプロイ責任者 (CDO)</div>
+          <p class="leader-bio">「準備ができる前に出すべき」という信念のもとSlopAIを創業。以前は3つのスタートアップを、登記書類の完成前にデプロイした経験を持つ。</p>
+        </div>
+        <div class="leader-card">
+          <div class="leader-initial">V</div>
+          <div class="leader-name">Velocity Marchetti</div>
+          <div class="leader-title">最高近似責任者 (CAO)</div>
+          <p class="leader-bio">SlopAIの精度隣接機能全般を統括。財務モデリング、確信キャリブレーション、機関規模での戦略的曖昧性を専門とする。</p>
+        </div>
+        <div class="leader-card">
+          <div class="leader-initial">D</div>
+          <div class="leader-name">Dispatch Okonkwo</div>
+          <div class="leader-title">最高収益隣接責任者</div>
+          <p class="leader-bio">価値が定義される前にモメンタムを価値に変換する役割を担う。Q3中に、完成したRFPなしで1.3兆ドルの追加時価総額を実現した。</p>
+        </div>
+        <div class="leader-card">
+          <div class="leader-initial">L</div>
+          <div class="leader-name">Launch Ferreira</div>
+          <div class="leader-title">最高確信前責任者</div>
+          <p class="leader-bio">十分な情報が揃う前に行われるすべての意思決定を統括。SlopAIの平均意思決定時間を18ヶ月かけて4分からゼロ秒に短縮した。</p>
+        </div>
+        <div class="leader-card">
+          <div class="leader-initial">P</div>
+          <div class="leader-name">Posture Lindqvist</div>
+          <div class="leader-title">最高規制モメンタム責任者</div>
+          <p class="leader-bio">47市場における規制当局との関係を管理。ローンチ後コンプライアンス・アーキテクチャと遡及的許可フレームワークを専門とする。</p>
+        </div>
+        <div class="leader-card">
+          <div class="leader-initial">A</div>
+          <div class="leader-name">Amplitude Zhang</div>
+          <div class="leader-title">最高品質順序化責任者</div>
+          <p class="leader-bio">SlopAIのローンチ後品質イニシアチブを率いる。品質が関連性を持ち始めた際に、適切な緊急度で対処されることを担保する責任を持つ。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ceo-section">
+    <div class="container">
+      <div class="ceo-inner reveal">
+        <div class="section-label" style="text-align:center;margin-bottom:2rem;">玉座からのメッセージ</div>
+        <p class="ceo-quote">「コンセンサスが生まれる前にデプロイした。<br>コンセンサスは<em>それに続いた。</em><br>これがSlopAIのドクトリンだ。<br>出す。戴冠。繰り返す。」</p>
+        <div class="ceo-attr">
+          <strong>Sovereign Deployé — 最高デプロイ責任者</strong>
+          SlopAI inc. · 2026年Q3 株主総会アドレス
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-left">
+      <div class="footer-brand">SlopAI inc.</div>
+      <div class="footer-slogan">0%の計算。100%のデプロイ。</div>
+      <div class="footer-slogan" style="margin-top:.2rem;font-size:.62rem;">© 2026 SlopAI inc. All deployments reserved.</div>
+    </div>
+    <div class="footer-right">
+      <div class="footer-ticker">SLLLLLLLOP</div>
+      <div class="footer-note">考える前に出す、時価総額5テリオンダドルのAI企業。</div>
+    </div>
+  </footer>
+
+  <script>
+    const LOGO  = '../ChatGPT Image 2026年5月13日 17_14_23.png';
+    const ABOUT = '../ChatGPT Image 2026年5月13日 17_12_18.png';
+    const logoEl = document.getElementById('nav-logo');
+    logoEl.src = LOGO;
+    logoEl.onerror = () => { logoEl.style.display='none'; document.getElementById('nav-logo-fallback').style.display='inline'; };
+    document.getElementById('about-hero').style.backgroundImage = `url("${ABOUT}")`;
+    window.addEventListener('scroll', () => { if(window.scrollY>40) document.getElementById('nav').classList.add('scrolled'); }, {passive:true});
+    const obs = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);} }); }, {threshold:0.08});
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>

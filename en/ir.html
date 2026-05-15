@@ -1,0 +1,413 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Investor Relations — SlopAI inc.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .ir-hero {
+      min-height: 65vh;
+      display: flex;
+      align-items: flex-end;
+      background-size: cover;
+      background-position: center 30%;
+      position: relative;
+    }
+    .ir-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(8,8,8,0.3) 0%, rgba(8,8,8,0.7) 55%, rgba(8,8,8,1) 100%);
+    }
+    .ir-hero-text {
+      position: relative;
+      z-index: 1;
+      padding: 0 5vw 5rem;
+      max-width: 900px;
+    }
+    .ir-hero-text h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--warm-white);
+      margin-bottom: .75rem;
+    }
+    .ir-hero-text .sub { font-family: var(--font-display); font-style: italic; font-size: 1.2rem; color: var(--gold); }
+
+    /* METRICS ROW */
+    .metrics-row {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      background: var(--gold-line);
+      gap: 1px;
+      border-bottom: 1px solid var(--gold-line);
+    }
+    .metric-cell { background: var(--obsidian); padding: 2rem 1.5rem; text-align: center; }
+    .metric-cell-val {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: .4rem;
+    }
+    .metric-cell-lbl { font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: var(--text-muted); }
+
+    /* CHART */
+    .chart-section { background: var(--obsidian); border-bottom: 1px solid var(--gold-line); padding: 60px 5vw; }
+    .chart-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2rem; }
+    .chart-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 400; color: var(--warm-white); }
+    .chart-sub { font-size: .65rem; letter-spacing: .15em; text-transform: uppercase; color: var(--text-muted); }
+    .chart-area { width: 100%; height: 200px; }
+    .chart-area svg { width: 100%; height: 100%; overflow: visible; }
+
+    /* SHAREHOLDER LETTER */
+    .ir-letter { background: var(--black); padding: 100px 0; border-bottom: 1px solid var(--gold-line); }
+    .ir-letter-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .ir-letter h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 300;
+      color: var(--warm-white);
+      margin-bottom: 2rem;
+      line-height: 1.2;
+    }
+    .ir-letter p { font-size: .88rem; color: var(--text-body); line-height: 1.9; margin-bottom: 1.4rem; }
+    .ir-letter blockquote {
+      margin: 2rem 0;
+      padding: 1.5rem 2rem;
+      border-left: 2px solid var(--gold);
+      background: var(--obsidian);
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--warm-white);
+      line-height: 1.6;
+    }
+
+    /* QUARTERLY */
+    .quarterly {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--gold-line);
+      border: 1px solid var(--gold-line);
+    }
+    .quarter-item { background: var(--dark); padding: 1.75rem 2rem; transition: background .2s; }
+    .quarter-item:hover { background: var(--dark2); }
+    .quarter-label { font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: .5rem; }
+    .quarter-headline { font-family: var(--font-display); font-size: 1.2rem; font-weight: 400; color: var(--warm-white); margin-bottom: .4rem; }
+    .quarter-detail { font-size: .78rem; color: var(--text-muted); line-height: 1.7; }
+
+    /* PRESS RELEASES */
+    .press-releases { background: var(--obsidian); padding: 100px 0; border-bottom: 1px solid var(--gold-line); }
+    .press-releases h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 300;
+      color: var(--warm-white);
+      margin-bottom: 3rem;
+    }
+    .press-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--gold-line);
+      border: 1px solid var(--gold-line);
+    }
+    .press-item {
+      background: var(--obsidian);
+      padding: 2rem 2.5rem;
+      display: grid;
+      grid-template-columns: 100px 1fr auto;
+      gap: 2rem;
+      align-items: center;
+      transition: background .2s;
+    }
+    .press-item:hover { background: var(--dark2); }
+    .press-date-col { font-size: .7rem; color: var(--text-muted); }
+    .press-headline-col h3 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 400; color: var(--warm-white); margin-bottom: .25rem; }
+    .press-headline-col p { font-size: .78rem; color: var(--text-body); }
+    .press-tag { font-size: .6rem; letter-spacing: .15em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold-dim); padding: .3rem .75rem; white-space: nowrap; }
+
+    /* FAQ */
+    .faq-section { background: var(--dark); padding: 100px 0; border-bottom: 1px solid var(--gold-line); }
+    .faq-section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 300;
+      color: var(--warm-white);
+      margin-bottom: 3rem;
+    }
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--gold-line);
+      border: 1px solid var(--gold-line);
+    }
+    .faq-item { background: var(--dark); padding: 2rem 2.5rem; }
+    .faq-q { font-family: var(--font-display); font-size: 1.1rem; font-weight: 400; color: var(--warm-white); margin-bottom: .75rem; }
+    .faq-a { font-size: .82rem; color: var(--text-body); line-height: 1.8; }
+
+    /* RISK */
+    .risk-section {
+      background: var(--dark);
+      padding: 60px 5vw;
+      border-top: 1px solid var(--gold-line);
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .risk-label { font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); padding-top: .15rem; }
+    .risk-text { font-size: .78rem; color: var(--text-muted); line-height: 1.8; }
+
+    @media(max-width:1000px){ .metrics-row{grid-template-columns:repeat(3,1fr)} }
+    @media(max-width:900px){
+      .ir-letter-grid{grid-template-columns:1fr;gap:48px}
+      .press-item{grid-template-columns:1fr;gap:.75rem}
+      .risk-section{grid-template-columns:1fr;gap:1rem}
+      .faq-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:600px){ .metrics-row{grid-template-columns:repeat(2,1fr)} }
+  </style>
+</head>
+<body>
+
+  <header id="nav" class="solid">
+    <a href="index.html"><img id="nav-logo" alt="SlopAI"><span id="nav-logo-fallback">SlopAI inc.</span></a>
+    <nav><ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="ir.html" class="active">IR</a></li>
+      <li><a href="careers.html">Careers</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul></nav>
+  </header>
+
+  <div class="ir-hero" id="ir-hero">
+    <div class="ir-hero-text">
+      <div class="section-label">Investor Relations</div>
+      <h1>The chart has already<br>made its decision.</h1>
+      <p class="sub">Forward-looking statements are already deployed.</p>
+    </div>
+  </div>
+
+  <div class="metrics-row">
+    <div class="metric-cell reveal"><div class="metric-cell-val">$5T</div><div class="metric-cell-lbl">Market Cap</div></div>
+    <div class="metric-cell reveal"><div class="metric-cell-val">8000%</div><div class="metric-cell-lbl">YoY Growth</div></div>
+    <div class="metric-cell reveal"><div class="metric-cell-val">0 sec</div><div class="metric-cell-lbl">Time to Certainty</div></div>
+    <div class="metric-cell reveal"><div class="metric-cell-val">24/365</div><div class="metric-cell-lbl">Deployment Posture</div></div>
+    <div class="metric-cell reveal"><div class="metric-cell-val" style="font-size:1rem;padding-top:.5rem">SLLLLLLLOP</div><div class="metric-cell-lbl">Public Ticker</div></div>
+    <div class="metric-cell reveal"><div class="metric-cell-val">∞</div><div class="metric-cell-lbl">Addressable Friction</div></div>
+  </div>
+
+  <!-- CHART -->
+  <div class="chart-section reveal">
+    <div class="chart-header">
+      <div class="chart-title">SLLLLLLLOP — All Time Performance</div>
+      <div class="chart-sub">+8000% YoY · Updated continuously · Before review</div>
+    </div>
+    <div class="chart-area">
+      <svg viewBox="0 0 1200 200" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#C9A84C" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path d="M0,190 L100,185 L200,178 L300,168 L400,155 L500,138 L600,118 L700,94 L800,68 L900,42 L1000,22 L1100,8 L1200,0 L1200,200 L0,200 Z" fill="url(#chartGrad)"/>
+        <path d="M0,190 L100,185 L200,178 L300,168 L400,155 L500,138 L600,118 L700,94 L800,68 L900,42 L1000,22 L1100,8 L1200,0" fill="none" stroke="#C9A84C" stroke-width="2"/>
+        <line x1="0" y1="50" x2="1200" y2="50" stroke="rgba(201,168,76,0.07)" stroke-width="1"/>
+        <line x1="0" y1="100" x2="1200" y2="100" stroke="rgba(201,168,76,0.07)" stroke-width="1"/>
+        <line x1="0" y1="150" x2="1200" y2="150" stroke="rgba(201,168,76,0.07)" stroke-width="1"/>
+        <circle cx="1200" cy="0" r="5" fill="#C9A84C"/>
+        <text x="1185" y="-8" fill="#C9A84C" font-size="11" font-family="Inter" text-anchor="end">+8000%</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- SHAREHOLDER LETTER -->
+  <section class="ir-letter">
+    <div class="container">
+      <div class="ir-letter-grid">
+        <div class="reveal">
+          <div class="section-label">Shareholder Letter · Q3 2026</div>
+          <div class="gold-line"></div>
+          <h2>We are accelerating the part of the economy still waiting for permission.</h2>
+          <p>Dear Shareholders,</p>
+          <p>SlopAI inc. is not merely participating in the AI economy. It is accelerating the part of the economy that was still waiting for permission.</p>
+          <p>Our growth model is simple: every hesitation in the market becomes a deployment opportunity. Every committee becomes addressable friction. Every unfinished idea becomes revenue-adjacent momentum.</p>
+          <p>In Q3 2026, SlopAI executed 412 enterprise contracts before the corresponding RFP processes were completed. We signed $1.3T in incremental market cap over 11 business days. We deployed into 12 new regulated markets before completing regulatory filings. None of this was accidental.</p>
+          <blockquote>"We deployed before consensus existed. The consensus followed. This is the SlopAI doctrine."</blockquote>
+          <p>We believe deployment velocity compounds faster than due diligence. The market has validated this belief at a $5T valuation. We intend to continue proving it in Q4 and beyond.</p>
+          <p>The chart has already made its decision.</p>
+          <p style="margin-top:1.5rem;font-size:.8rem;color:var(--text-muted);">— Sovereign Deployé, Chief Deployment Officer</p>
+        </div>
+        <div class="reveal">
+          <div class="section-label">Q3 2026 Highlights</div>
+          <div class="gold-line"></div>
+          <div class="quarterly">
+            <div class="quarter-item">
+              <div class="quarter-label">Market Cap</div>
+              <div class="quarter-headline">$5T — achieved before Q3 close</div>
+              <p class="quarter-detail">$1.3T incremental market cap generated in 11 business days through deployment velocity and strategic confidence.</p>
+            </div>
+            <div class="quarter-item">
+              <div class="quarter-label">Enterprise</div>
+              <div class="quarter-headline">412 contracts signed pre-RFP</div>
+              <p class="quarter-detail">SlopAI's enterprise motion operates at the speed of intent. Procurement cycles are legacy infrastructure.</p>
+            </div>
+            <div class="quarter-item">
+              <div class="quarter-label">Regulatory</div>
+              <div class="quarter-headline">12 new markets entered pre-filing</div>
+              <p class="quarter-detail">Our legal posture is proactive deployment followed by responsive clarification.</p>
+            </div>
+            <div class="quarter-item">
+              <div class="quarter-label">Products</div>
+              <div class="quarter-headline">6 live, 0 in review</div>
+              <p class="quarter-detail">All products currently deployed. Review queue empty by design. QA roadmap: post-launch and ongoing.</p>
+            </div>
+            <div class="quarter-item">
+              <div class="quarter-label">Outlook</div>
+              <div class="quarter-headline">Forward-looking statements already deployed</div>
+              <p class="quarter-detail">Q4 projections shipped to market before finalization. This is intentional and considered a product feature.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRESS RELEASES -->
+  <section class="press-releases">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Press Releases</div>
+        <div class="gold-line"></div>
+        <h2>Recent announcements.<br>Deployed before review.</h2>
+      </div>
+      <div class="press-list reveal">
+        <div class="press-item">
+          <div class="press-date-col">May 14, 2026</div>
+          <div class="press-headline-col">
+            <h3>SlopAI inc. achieves $5T market cap; cites "deployment momentum" as primary driver</h3>
+            <p>Company surpasses $5 trillion valuation two quarters ahead of the schedule nobody wrote down.</p>
+          </div>
+          <div class="press-tag">Earnings</div>
+        </div>
+        <div class="press-item">
+          <div class="press-date-col">Apr 30, 2026</div>
+          <div class="press-headline-col">
+            <h3>SlopAI launches VisionMaybe into beta; product unsure what it sees but "very confident about it"</h3>
+            <p>New computer vision platform available to enterprise customers immediately. Documentation forthcoming.</p>
+          </div>
+          <div class="press-tag">Product</div>
+        </div>
+        <div class="press-item">
+          <div class="press-date-col">Mar 15, 2026</div>
+          <div class="press-headline-col">
+            <h3>SlopAI enters 12 regulated markets simultaneously; regulators notified same day</h3>
+            <p>Expansion strategy described internally as "ask forgiveness, then deploy again."</p>
+          </div>
+          <div class="press-tag">Expansion</div>
+        </div>
+        <div class="press-item">
+          <div class="press-date-col">Feb 2, 2026</div>
+          <div class="press-headline-col">
+            <h3>SlopAI Q4 2025 results: 8000% YoY growth "understates the momentum," says CDO</h3>
+            <p>Full earnings report deployed before audit was completed. Auditors informed retrospectively.</p>
+          </div>
+          <div class="press-tag">Earnings</div>
+        </div>
+        <div class="press-item">
+          <div class="press-date-col">Jan 8, 2026</div>
+          <div class="press-headline-col">
+            <h3>SlopAI announces InfiniteDraft; company states "it cannot be turned off, and that is the product"</h3>
+            <p>Enterprise content generation platform launched without an off switch. Feature, not bug.</p>
+          </div>
+          <div class="press-tag">Product</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Investor FAQ</div>
+        <div class="gold-line"></div>
+        <h2>Questions we have pre-answered.</h2>
+      </div>
+      <div class="faq-grid reveal">
+        <div class="faq-item">
+          <p class="faq-q">Is the 8000% YoY growth audited?</p>
+          <p class="faq-a">The audit is in progress. The growth occurred regardless. We believe the sequencing of audit and growth is a legacy convention.</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-q">What does "revenue-adjacent momentum" mean?</p>
+          <p class="faq-a">It refers to activities that are structurally similar to revenue generation, occurring in the same temporal vicinity as financial quarters.</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-q">How does SlopAI manage regulatory risk?</p>
+          <p class="faq-a">By deploying before regulators have formed a view, SlopAI establishes the factual baseline that regulators subsequently assess. We consider this a positioning advantage.</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-q">When will products reach production quality?</p>
+          <p class="faq-a">All products are in production. Quality is an ongoing post-launch initiative. Timelines are not available because timelines imply hesitation.</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-q">What is the SLLLLLLLOP ticker length rationale?</p>
+          <p class="faq-a">The ticker communicates deployment momentum through sheer character volume. It was approved by the exchange before the exchange fully processed the request.</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-q">Does SlopAI have a product roadmap?</p>
+          <p class="faq-a">The roadmap has been deployed. It is not available for review. Future products will be announced upon launch, not before.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="risk-section reveal">
+    <div class="risk-label">Risk Factors</div>
+    <p class="risk-text">The company may deploy products before the market, regulators, employees, or products themselves are fully aware of deployment. Additional risks include: premature certainty, velocity-induced market disorientation, insufficient hesitation reserves, and the possibility that some forward-looking statements were deployed before underlying facts were confirmed, estimated, or considered. The company may also sign enterprise contracts before products exist, enter regulated markets before filing, and announce results before audits complete. Investors should be aware that SlopAI operates at the frontier of what can technically be called a plan. These risks are features.</p>
+  </div>
+
+  <footer>
+    <div class="footer-left">
+      <div class="footer-brand">SlopAI inc.</div>
+      <div class="footer-slogan">0% Actuary. 100% Deployment.</div>
+      <div class="footer-slogan" style="margin-top:.2rem;font-size:.62rem;">© 2026 SlopAI inc. All deployments reserved.</div>
+    </div>
+    <div class="footer-right">
+      <div class="footer-ticker">SLLLLLLLOP</div>
+      <div class="footer-note">考える前に出す、時価総額5テリオンダドルのAI企業。</div>
+    </div>
+  </footer>
+
+  <script>
+    const LOGO = '../ChatGPT Image 2026年5月13日 17_14_23.png';
+    const IR   = '../ChatGPT Image 2026年5月13日 17_20_41.png';
+    const logoEl = document.getElementById('nav-logo');
+    logoEl.src = LOGO;
+    logoEl.onerror = () => { logoEl.style.display='none'; document.getElementById('nav-logo-fallback').style.display='inline'; };
+    document.getElementById('ir-hero').style.backgroundImage = `url("${IR}")`;
+    window.addEventListener('scroll', () => { if(window.scrollY>40) document.getElementById('nav').classList.add('scrolled'); }, {passive:true});
+    const obs = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);} }); }, {threshold:0.08});
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>

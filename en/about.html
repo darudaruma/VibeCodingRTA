@@ -1,0 +1,477 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — SlopAI inc.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .about-hero {
+      min-height: 65vh;
+      display: flex;
+      align-items: flex-end;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(8,8,8,0.4) 0%, rgba(8,8,8,0.75) 55%, rgba(8,8,8,1) 100%);
+    }
+    .about-hero-text {
+      position: relative;
+      z-index: 1;
+      padding: 0 5vw 5rem;
+      max-width: 860px;
+    }
+    .about-hero-text h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--warm-white);
+      margin-bottom: .75rem;
+    }
+    .about-hero-text .sub {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--gold);
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: var(--gold-line);
+      gap: 1px;
+      border-bottom: 1px solid var(--gold-line);
+    }
+    .stat-cell {
+      background: var(--obsidian);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      border-right: 1px solid var(--gold-line);
+    }
+    .stat-cell:last-child { border-right: none; }
+    .stat-val {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: .4rem;
+    }
+    .stat-lbl { font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: var(--text-muted); }
+
+    /* MANIFESTO */
+    .manifesto {
+      background: var(--obsidian);
+      padding: 100px 0;
+      border-bottom: 1px solid var(--gold-line);
+    }
+    .manifesto-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .manifesto-left h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--warm-white);
+      margin-bottom: 2rem;
+    }
+    .manifesto-left p {
+      font-size: .88rem;
+      color: var(--text-body);
+      line-height: 1.9;
+      margin-bottom: 1.4rem;
+    }
+    .manifesto-left blockquote {
+      margin-top: 2.5rem;
+      padding-left: 1.5rem;
+      border-left: 2px solid var(--gold);
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--warm-white);
+      line-height: 1.6;
+    }
+    .principles {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--gold-line);
+      border: 1px solid var(--gold-line);
+    }
+    .principle-item {
+      background: var(--dark);
+      padding: 2rem 2.5rem;
+      transition: background .25s;
+    }
+    .principle-item:hover { background: var(--dark2); }
+    .principle-num { font-family: var(--font-display); font-size: .75rem; color: var(--gold); letter-spacing: .15em; margin-bottom: .6rem; }
+    .principle-title { font-family: var(--font-display); font-size: 1.25rem; font-weight: 400; color: var(--warm-white); margin-bottom: .45rem; }
+    .principle-body { font-size: .82rem; color: var(--text-body); line-height: 1.8; }
+
+    /* TIMELINE */
+    .timeline-section {
+      background: var(--dark);
+      padding: 100px 0;
+      border-bottom: 1px solid var(--gold-line);
+    }
+    .timeline-section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 300;
+      color: var(--warm-white);
+      margin-bottom: 3rem;
+    }
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-left: 1px solid var(--gold-line);
+      margin-left: 1rem;
+    }
+    .tl-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 2rem;
+      padding: 2rem 0 2rem 2.5rem;
+      position: relative;
+      border-bottom: 1px solid var(--gold-line);
+    }
+    .tl-item:last-child { border-bottom: none; }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -5px;
+      top: 2.5rem;
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    .tl-year {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--gold);
+      padding-top: .1rem;
+    }
+    .tl-event h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--warm-white);
+      margin-bottom: .4rem;
+    }
+    .tl-event p { font-size: .82rem; color: var(--text-body); line-height: 1.8; }
+
+    /* LEADERSHIP */
+    .leadership-section {
+      background: var(--obsidian);
+      padding: 100px 0;
+      border-bottom: 1px solid var(--gold-line);
+    }
+    .leadership-section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 300;
+      color: var(--warm-white);
+      margin-bottom: 3rem;
+    }
+    .leadership-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--gold-line);
+      border: 1px solid var(--gold-line);
+    }
+    .leader-card {
+      background: var(--obsidian);
+      padding: 2.5rem;
+      transition: background .25s;
+    }
+    .leader-card:hover { background: var(--dark2); }
+    .leader-initial {
+      width: 56px; height: 56px;
+      border: 1px solid var(--gold-line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+    .leader-name {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--warm-white);
+      margin-bottom: .25rem;
+    }
+    .leader-title { font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .leader-bio { font-size: .8rem; color: var(--text-body); line-height: 1.8; }
+
+    /* CEO STATEMENT */
+    .ceo-section {
+      background: var(--black);
+      border-top: 1px solid var(--gold-line);
+      padding: 100px 0;
+    }
+    .ceo-inner { max-width: 760px; margin: 0 auto; text-align: center; }
+    .ceo-quote {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(1.5rem, 3vw, 2.4rem);
+      font-weight: 300;
+      color: var(--warm-white);
+      line-height: 1.45;
+      margin-bottom: 2.5rem;
+    }
+    .ceo-quote em { color: var(--gold); font-style: normal; }
+    .ceo-attr { font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--text-muted); }
+    .ceo-attr strong { display: block; font-weight: 500; color: var(--gold); font-size: .8rem; margin-bottom: .2rem; letter-spacing: .12em; }
+
+    @media(max-width:900px){
+      .manifesto-grid{grid-template-columns:1fr;gap:48px}
+      .stats-bar{grid-template-columns:repeat(2,1fr)}
+      .stat-cell:nth-child(2){border-right:none}
+      .stat-cell:nth-child(3){border-top:1px solid var(--gold-line)}
+      .leadership-grid{grid-template-columns:1fr 1fr}
+      .tl-item{grid-template-columns:80px 1fr}
+    }
+    @media(max-width:600px){
+      .leadership-grid{grid-template-columns:1fr}
+      .tl-item{grid-template-columns:1fr;padding-left:2rem}
+      .tl-year{font-size:.9rem}
+    }
+  </style>
+</head>
+<body>
+
+  <header id="nav" class="solid">
+    <a href="index.html"><img id="nav-logo" alt="SlopAI"><span id="nav-logo-fallback">SlopAI inc.</span></a>
+    <nav><ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="ir.html">IR</a></li>
+      <li><a href="careers.html">Careers</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul></nav>
+  </header>
+
+  <div class="about-hero" id="about-hero">
+    <div class="about-hero-text">
+      <div class="section-label">About SlopAI inc.</div>
+      <h1>We are not an AI lab.<br>We are a deployment<br><em style="font-style:italic;color:var(--gold)">monarchy.</em></h1>
+      <p class="sub">Ship first. Explain later.</p>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-cell reveal"><div class="stat-val">$5T</div><div class="stat-lbl">Market Cap</div></div>
+    <div class="stat-cell reveal"><div class="stat-val">8000%</div><div class="stat-lbl">YoY Growth</div></div>
+    <div class="stat-cell reveal"><div class="stat-val">0 sec</div><div class="stat-lbl">Avg. Decision Time</div></div>
+    <div class="stat-cell reveal"><div class="stat-val">∞</div><div class="stat-lbl">Deployments Queued</div></div>
+  </div>
+
+  <!-- MANIFESTO -->
+  <section class="manifesto">
+    <div class="container">
+      <div class="manifesto-grid">
+        <div class="manifesto-left reveal">
+          <div class="section-label">Company Manifesto</div>
+          <div class="gold-line"></div>
+          <h2>We refuse<br>to wait<br>for perfect.</h2>
+          <p>SlopAI inc. was built on a simple refusal: we refuse to wait for perfect.</p>
+          <p>While traditional AI companies model risk, validate assumptions, and schedule committees, SlopAI deploys. Our systems are designed for the moment before certainty — the second before the meeting ends, the instant before the customer finishes asking.</p>
+          <p>Speed is not a feature. Speed is the only principle that compounds. Every hesitation in the market becomes a deployment opportunity. Every committee becomes addressable friction. Every unfinished idea becomes revenue-adjacent momentum.</p>
+          <p>We do not build AI that waits for the world to be ready. We build AI that deploys before the world realizes it needed asking.</p>
+          <blockquote>"Quality is a post-launch department. We have made peace with this."</blockquote>
+        </div>
+        <div class="principles reveal">
+          <div class="principle-item">
+            <div class="principle-num">Principle I</div>
+            <div class="principle-title">Speed is the only KPI that compounds.</div>
+            <p class="principle-body">All other metrics are downstream of velocity. Accuracy, safety, stability — these are post-launch optimization targets.</p>
+          </div>
+          <div class="principle-item">
+            <div class="principle-num">Principle II</div>
+            <div class="principle-title">Bugs are post-launch information.</div>
+            <p class="principle-body">What others call failure, we call real-time feedback. The market provides QA at scale, and it works faster than any internal process.</p>
+          </div>
+          <div class="principle-item">
+            <div class="principle-num">Principle III</div>
+            <div class="principle-title">Every hesitation is addressable friction.</div>
+            <p class="principle-body">Caution is a market position. SlopAI occupies the space left behind by every organization still waiting for consensus.</p>
+          </div>
+          <div class="principle-item">
+            <div class="principle-num">Principle IV</div>
+            <div class="principle-title">The chart has already made its decision.</div>
+            <p class="principle-body">Forward-looking statements are already deployed. The trajectory is not a prediction — it is a fact that has not yet arrived.</p>
+          </div>
+          <div class="principle-item">
+            <div class="principle-num">Principle V</div>
+            <div class="principle-title">No committees. No hesitation. Only launch.</div>
+            <p class="principle-body">Decision-making velocity is a core infrastructure investment. Every governance layer removed is a deployment cycle gained.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="timeline-section">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Company History</div>
+        <div class="gold-line"></div>
+        <h2>A brief history of deployment.</h2>
+      </div>
+      <div class="timeline reveal">
+        <div class="tl-item">
+          <div class="tl-year">2021</div>
+          <div class="tl-event">
+            <h3>Founded</h3>
+            <p>SlopAI inc. founded on the principle that deployment is more important than preparation. First product shipped 4 hours after incorporation. Legal review scheduled for Q3 2027.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2022</div>
+          <div class="tl-event">
+            <h3>First Enterprise Contract</h3>
+            <p>Signed a $400M enterprise contract with a Fortune 500 company before the product existed. Product shipped 3 weeks later. Client notified 2 weeks after that.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2023</div>
+          <div class="tl-event">
+            <h3>$1T Valuation</h3>
+            <p>Reached $1T market cap. Analysts called it premature. SlopAI called it pre-launch. Both were technically correct. SlopAI was faster.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2024</div>
+          <div class="tl-event">
+            <h3>Six Products Launched</h3>
+            <p>SlopChat, DeckFotge, ReplyFast, MeetingSlop, VisionMaybe, and InfiniteDraft all launched within a single quarter. QA began the following quarter.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2025</div>
+          <div class="tl-event">
+            <h3>Regulatory Dialogue Initiated</h3>
+            <p>SlopAI proactively initiated dialogue with regulators after deploying into 47 regulated markets. Dialogue is ongoing. Deployment continued throughout.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2026</div>
+          <div class="tl-event">
+            <h3>$5T Market Cap. 8000% YoY Growth.</h3>
+            <p>The chart made its decision. We deployed before consensus existed. The consensus followed. Ticker: SLLLLLLLOP.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEADERSHIP -->
+  <section class="leadership-section">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Leadership</div>
+        <div class="gold-line"></div>
+        <h2>The Deployment Council.</h2>
+      </div>
+      <div class="leadership-grid reveal">
+        <div class="leader-card">
+          <div class="leader-initial">S</div>
+          <div class="leader-name">Sovereign Deployé</div>
+          <div class="leader-title">Chief Deployment Officer</div>
+          <p class="leader-bio">Founded SlopAI on the belief that the best time to ship is before you are ready. Previously deployed three startups before their incorporation paperwork was finalized.</p>
+        </div>
+        <div class="leader-card">
+          <div class="leader-initial">V</div>
+          <div class="leader-name">Velocity Marchetti</div>
+          <div class="leader-title">Chief Approximation Officer</div>
+          <p class="leader-bio">Leads all precision-adjacent functions at SlopAI. Background in financial modeling, confidence calibration, and strategic vagueness at institutional scale.</p>
+        </div>
+        <div class="leader-card">
+          <div class="leader-initial">D</div>
+          <div class="leader-name">Dispatch Okonkwo</div>
+          <div class="leader-title">Chief Revenue-Adjacent Officer</div>
+          <p class="leader-bio">Responsible for converting momentum into value before value is defined. Closed $1.3T in incremental market cap during Q3 without a single completed RFP.</p>
+        </div>
+        <div class="leader-card">
+          <div class="leader-initial">L</div>
+          <div class="leader-name">Launch Ferreira</div>
+          <div class="leader-title">Chief Pre-Certainty Officer</div>
+          <p class="leader-bio">Oversees all decisions made before sufficient information is available. Reduced SlopAI's average time-to-decision from 4 minutes to 0 seconds over 18 months.</p>
+        </div>
+        <div class="leader-card">
+          <div class="leader-initial">P</div>
+          <div class="leader-name">Posture Lindqvist</div>
+          <div class="leader-title">Chief Regulatory Momentum Officer</div>
+          <p class="leader-bio">Manages SlopAI's relationship with regulators across 47 markets. Specializes in post-deployment compliance architecture and retroactive permission frameworks.</p>
+        </div>
+        <div class="leader-card">
+          <div class="leader-initial">A</div>
+          <div class="leader-name">Amplitude Zhang</div>
+          <div class="leader-title">Chief Quality Sequencing Officer</div>
+          <p class="leader-bio">Leads SlopAI's post-launch quality initiative. Responsible for ensuring that quality, once it becomes relevant, is addressed with appropriate urgency.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CEO QUOTE -->
+  <section class="ceo-section">
+    <div class="container">
+      <div class="ceo-inner reveal">
+        <div class="section-label" style="text-align:center;margin-bottom:2rem;">From the Throne</div>
+        <p class="ceo-quote">"We deployed before consensus existed.<br>The consensus <em>followed.</em><br>This is the SlopAI doctrine.<br>Ship. Crown. Repeat."</p>
+        <div class="ceo-attr">
+          <strong>Sovereign Deployé, Chief Deployment Officer</strong>
+          SlopAI inc. · Annual Shareholder Address, Q3 2026
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-left">
+      <div class="footer-brand">SlopAI inc.</div>
+      <div class="footer-slogan">0% Actuary. 100% Deployment.</div>
+      <div class="footer-slogan" style="margin-top:.2rem;font-size:.62rem;">© 2026 SlopAI inc. All deployments reserved.</div>
+    </div>
+    <div class="footer-right">
+      <div class="footer-ticker">SLLLLLLLOP</div>
+      <div class="footer-note">考える前に出す、時価総額5テリオンダドルのAI企業。</div>
+    </div>
+  </footer>
+
+  <script>
+    const LOGO  = '../ChatGPT Image 2026年5月13日 17_14_23.png';
+    const ABOUT = '../ChatGPT Image 2026年5月13日 17_12_18.png';
+    const logoEl = document.getElementById('nav-logo');
+    logoEl.src = LOGO;
+    logoEl.onerror = () => { logoEl.style.display='none'; document.getElementById('nav-logo-fallback').style.display='inline'; };
+    document.getElementById('about-hero').style.backgroundImage = `url("${ABOUT}")`;
+    window.addEventListener('scroll', () => { if(window.scrollY>40) document.getElementById('nav').classList.add('scrolled'); }, {passive:true});
+    const obs = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);} }); }, {threshold:0.08});
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>

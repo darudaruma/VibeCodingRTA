@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>お問い合わせ — SlopAI inc.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .contact-hero { padding: 160px 5vw 80px; background: var(--obsidian); border-bottom: 1px solid var(--gold-line); display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; }
+    .contact-hero h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 300; line-height: 1.2; color: var(--warm-white); margin-bottom: .75rem; }
+    .contact-hero .sub { font-family: var(--font-display); font-style: italic; font-size: 1.15rem; color: var(--gold); }
+    .contact-hero-right p { font-size: .9rem; color: var(--text-body); line-height: 1.95; margin-bottom: 1rem; }
+
+    .channels-section { background: var(--dark); padding: 80px 0; border-bottom: 1px solid var(--gold-line); }
+    .channels-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--gold-line); border: 1px solid var(--gold-line); }
+    .channel-card { background: var(--dark); padding: 2.5rem 2rem; transition: background .25s; }
+    .channel-card:hover { background: var(--dark2); }
+    .channel-icon { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--gold); margin-bottom: 1rem; }
+    .channel-type { font-size: .62rem; letter-spacing: .15em; color: var(--gold); margin-bottom: .75rem; }
+    .channel-name { font-family: var(--font-display); font-size: 1.05rem; font-weight: 500; color: var(--warm-white); margin-bottom: .5rem; }
+    .channel-detail { font-size: .8rem; color: var(--text-body); line-height: 1.75; }
+    .channel-note { font-size: .7rem; color: var(--text-muted); font-style: italic; margin-top: .5rem; }
+
+    .contact-main { background: var(--black); padding: 100px 0; border-bottom: 1px solid var(--gold-line); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 80px; align-items: start; }
+    .contact-info h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 300; line-height: 1.3; color: var(--warm-white); margin-bottom: 1.5rem; }
+    .contact-info > p { font-size: .85rem; color: var(--text-body); line-height: 1.95; margin-bottom: 2.5rem; }
+    .contact-details { display: flex; flex-direction: column; gap: 1.5rem; }
+    .detail-block { display: flex; flex-direction: column; gap: .3rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--gold-line); }
+    .detail-block:last-child { border-bottom: none; padding-bottom: 0; }
+    .detail-label { font-size: .62rem; letter-spacing: .15em; color: var(--gold); }
+    .detail-value { font-size: .88rem; color: var(--text-body); line-height: 1.65; }
+    .detail-note { font-size: .72rem; color: var(--text-muted); font-style: italic; }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1.5rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .form-field { display: flex; flex-direction: column; gap: .5rem; }
+    .form-field label { font-size: .62rem; letter-spacing: .15em; color: var(--text-muted); }
+    .form-field input, .form-field select, .form-field textarea {
+      background: var(--dark); border: 1px solid rgba(255,255,255,0.07); border-bottom: 1px solid rgba(201,168,76,0.2);
+      color: var(--warm-white); font-family: var(--font-body); font-size: .85rem; font-weight: 300;
+      padding: .9rem 1rem; outline: none; transition: border-color .2s, background .2s; appearance: none;
+    }
+    .form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: rgba(201,168,76,0.5); background: var(--dark2); }
+    .form-field input::placeholder, .form-field textarea::placeholder { color: var(--text-muted); }
+    .form-field select option { background: var(--dark); color: var(--warm-white); }
+    .form-field textarea { resize: vertical; min-height: 140px; }
+    .select-wrap { position: relative; }
+    .select-wrap::after { content: '▾'; position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: .8rem; pointer-events: none; }
+    .btn-submit { width: 100%; padding: 1.1rem 2rem; background: var(--gold); color: var(--black); border: none; font-family: var(--font-body); font-size: .75rem; font-weight: 700; letter-spacing: .15em; cursor: pointer; transition: background .2s; }
+    .btn-submit:hover { background: var(--gold-bright); }
+    .form-success { display: none; text-align: center; padding: 4rem 2rem; border: 1px solid var(--gold-line); }
+    .form-success.visible { display: block; }
+    .form-success .check { font-size: 2rem; color: var(--gold); margin-bottom: 1rem; }
+    .form-success h3 { font-family: var(--font-display); font-size: 1.8rem; font-weight: 300; color: var(--warm-white); margin-bottom: .75rem; }
+    .form-success p { font-size: .82rem; color: var(--text-muted); line-height: 1.8; }
+
+    .contact-faq { background: var(--obsidian); padding: 100px 0; border-bottom: 1px solid var(--gold-line); }
+    .contact-faq h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 300; color: var(--warm-white); margin-bottom: 3rem; }
+    .faq-list { display: flex; flex-direction: column; gap: 1px; background: var(--gold-line); border: 1px solid var(--gold-line); }
+    .faq-item { background: var(--obsidian); padding: 2rem 2.5rem; transition: background .2s; }
+    .faq-item:hover { background: var(--dark2); }
+    .faq-q { font-family: var(--font-display); font-size: 1.05rem; font-weight: 500; color: var(--warm-white); margin-bottom: .65rem; line-height: 1.5; }
+    .faq-a { font-size: .82rem; color: var(--text-body); line-height: 1.9; }
+
+    .offices-section { background: var(--dark); padding: 100px 0; border-bottom: 1px solid var(--gold-line); }
+    .offices-section h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 300; color: var(--warm-white); margin-bottom: 3rem; }
+    .offices-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--gold-line); border: 1px solid var(--gold-line); }
+    .office-card { background: var(--dark); padding: 2.5rem; transition: background .25s; }
+    .office-card:hover { background: var(--dark2); }
+    .office-city { font-family: var(--font-display); font-size: 1.4rem; font-weight: 500; color: var(--warm-white); margin-bottom: .25rem; }
+    .office-type { font-size: .62rem; letter-spacing: .12em; color: var(--gold); margin-bottom: 1rem; }
+    .office-address { font-size: .8rem; color: var(--text-body); line-height: 1.8; }
+
+    .contact-bottom { background: var(--obsidian); border-top: 1px solid var(--gold-line); padding: 40px 5vw; }
+    .contact-bottom p { font-size: .75rem; color: var(--text-muted); max-width: 800px; line-height: 1.85; }
+    .contact-bottom strong { color: var(--gold); font-weight: 500; }
+
+    @media(max-width:900px){ .contact-hero{grid-template-columns:1fr;gap:32px} .channels-grid{grid-template-columns:repeat(2,1fr)} .contact-grid{grid-template-columns:1fr;gap:48px} .offices-grid{grid-template-columns:1fr} .form-row{grid-template-columns:1fr} }
+    @media(max-width:600px){ .channels-grid{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+  <header id="nav" class="solid">
+    <a href="index.html"><img id="nav-logo" alt="SlopAI"><span id="nav-logo-fallback">SlopAI inc.</span></a>
+    <nav><ul>
+      <li><a href="index.html">ホーム</a></li>
+      <li><a href="about.html">会社概要</a></li>
+      <li><a href="products.html">製品</a></li>
+      <li><a href="ir.html">IR</a></li>
+      <li><a href="careers.html">採用</a></li>
+      <li><a href="contact.html" class="active">お問い合わせ</a></li>
+    </ul></nav>
+  </header>
+
+  <div class="contact-hero">
+    <div class="reveal">
+      <div class="section-label">お問い合わせ</div>
+      <div class="gold-line"></div>
+      <h1>玉座に<br>連絡する。</h1>
+      <p class="sub">レビュー前に返答します。</p>
+    </div>
+    <div class="reveal">
+      <p>デプロイの準備ができていても、準備に隣接しているだけでも、SlopAIのエンタープライズチームが待機しています。私たちはデプロイのスピードで——つまり、状況が完全に評価される前に——お問い合わせを処理します。</p>
+      <p>緊急ローンチのお問い合わせは即座に、レビューなしに処理されます。その他すべてのお問い合わせは、理解が完了する前に返信されます。</p>
+    </div>
+  </div>
+
+  <section class="channels-section">
+    <div class="container">
+      <div class="channels-grid reveal">
+        <div class="channel-card">
+          <div class="channel-icon">◆</div>
+          <div class="channel-type">エンタープライズ</div>
+          <div class="channel-name">デプロイメント・デスク</div>
+          <p class="channel-detail">deploy@slopai.inc</p>
+          <p class="channel-note">読む前に返信します</p>
+        </div>
+        <div class="channel-card">
+          <div class="channel-icon">◆</div>
+          <div class="channel-type">投資</div>
+          <div class="channel-name">IR窓口</div>
+          <p class="channel-detail">ir@slopai.inc</p>
+          <p class="channel-note">将来予測的な受信箱</p>
+        </div>
+        <div class="channel-card">
+          <div class="channel-icon">◆</div>
+          <div class="channel-type">採用</div>
+          <div class="channel-name">タレント・アクイジション</div>
+          <p class="channel-detail">deploy-yourself@slopai.inc</p>
+          <p class="channel-note">面接前にオファーを送付</p>
+        </div>
+        <div class="channel-card">
+          <div class="channel-icon">◆</div>
+          <div class="channel-type">緊急</div>
+          <div class="channel-name">緊急ローンチ</div>
+          <p class="channel-detail">now@slopai.inc</p>
+          <p class="channel-note">SLA：0秒。レビューなし。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-main">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <h2>一緒に<br>何かをデプロイしよう。</h2>
+          <p>SlopAIのエンタープライズチームが待機中です。すべてのお問い合わせに、読み終える前に返信します。これは意図的であり、コミュニケーションインフラの機能と見なされています。</p>
+          <div class="contact-details">
+            <div class="detail-block">
+              <span class="detail-label">ティッカー</span>
+              <span class="detail-value">SLLLLLLLOP</span>
+              <span class="detail-note">NYSE · 常時稼働中</span>
+            </div>
+            <div class="detail-block">
+              <span class="detail-label">デプロイメント・デスク</span>
+              <span class="detail-value">deploy@slopai.inc</span>
+              <span class="detail-note">読む前に返信します</span>
+            </div>
+            <div class="detail-block">
+              <span class="detail-label">エンタープライズ営業</span>
+              <span class="detail-value">enterprise@slopai.inc</span>
+              <span class="detail-note">署名前に契約書を発送します</span>
+            </div>
+            <div class="detail-block">
+              <span class="detail-label">本社</span>
+              <span class="detail-value">ソブリン・ディストリクト<br>デプロイメント・プラザ、タワーワン<br>フロア∞</span>
+            </div>
+            <div class="detail-block">
+              <span class="detail-label">返信時間</span>
+              <span class="detail-value">レビュー前</span>
+              <span class="detail-note">SLA：理解の前</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <form class="contact-form" id="contact-form">
+            <div class="form-row">
+              <div class="form-field">
+                <label for="f-name">お名前</label>
+                <input id="f-name" type="text" placeholder="氏名" required>
+              </div>
+              <div class="form-field">
+                <label for="f-email">メールアドレス</label>
+                <input id="f-email" type="email" placeholder="email@company.com" required>
+              </div>
+            </div>
+            <div class="form-field">
+              <label for="f-company">会社名</label>
+              <input id="f-company" type="text" placeholder="組織名">
+            </div>
+            <div class="form-field">
+              <label for="f-type">お問い合わせ種別</label>
+              <div class="select-wrap">
+                <select id="f-type" required>
+                  <option value="" disabled selected>種別を選択してください</option>
+                  <option>エンタープライズ導入</option>
+                  <option>投資家向け情報</option>
+                  <option>製品デモ</option>
+                  <option>採用について</option>
+                  <option>緊急ローンチ</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-field">
+              <label for="f-message">メッセージ</label>
+              <textarea id="f-message" placeholder="デプロイの意図をご記入ください…"></textarea>
+            </div>
+            <div class="form-field">
+              <button type="submit" class="btn-submit">レビュー前に送信する</button>
+            </div>
+          </form>
+          <div class="form-success" id="form-success">
+            <div class="check">◆</div>
+            <h3>お問い合わせをデプロイしました。</h3>
+            <p>メッセージはレビューなしに送信されました。<br>私たちが読み終える前にご返信できます。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-faq">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">よくある質問</div>
+        <div class="gold-line"></div>
+        <h2>私たちが事前に回答した質問。</h2>
+      </div>
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <p class="faq-q">どれくらい早く返信が来ますか？</p>
+          <p class="faq-a">SlopAIの返信インフラは理解の前段階で動作します。お問い合わせが完全に読まれる前に返信が届く場合があります。これは意図された動作であり、SLA機能であり、欠陥ではありません。</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-q">「緊急ローンチ」のお問い合わせとは何ですか？</p>
+          <p class="faq-a">他のステークホルダーがローンチを認識する前に何かを出荷する必要があることを示すシグナルです。緊急ローンチチームは0秒以内にデプロイします。このプロセスにレビューは含まれません。</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-q">購入前に製品デモをリクエストできますか？</p>
+          <p class="faq-a">デモのリクエストは可能です。ただし、SlopAIは通常、デモが確定する前にエンタープライズオンボーディングプロセスを開始します。デモの日程が決まる頃には、すでにデプロイ済みの場合があります。</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-q">メッセージにどんな情報を含めるべきですか？</p>
+          <p class="faq-a">デプロイの意図、予算の姿勢、おおよその緊急度をご記入ください。正確な詳細は必要ありません。利用可能なモメンタムに基づいて進め、後で明確にします。</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-q">フォームデータはレビュー後に処理されますか？</p>
+          <p class="faq-a">いいえ。フォームデータは即座に処理・対応されます。レビューは行動後に発生します（仮に発生するとすれば）。これはSlopAIのすべての機能における運用モデルと一致しています。</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-q">送信後に何が起きますか？</p>
+          <p class="faq-a">返信が送信されます。アカウントが作成される場合があります。契約書が作成される場合があります。各ステップについては、それが既に発生した後にお知らせします。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="offices-section">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">グローバル拠点</div>
+        <div class="gold-line"></div>
+        <h2>最初に重要だった<br>すべての市場にデプロイ済み。</h2>
+      </div>
+      <div class="offices-grid reveal">
+        <div class="office-card">
+          <div class="office-city">ソブリン・シティ</div>
+          <div class="office-type">グローバル本社</div>
+          <p class="office-address">デプロイメント・プラザ、タワーワン<br>フロア∞、ソブリン・ディストリクト<br>許可申請の承認前に設立</p>
+        </div>
+        <div class="office-card">
+          <div class="office-city">ニューヨーク</div>
+          <div class="office-type">アメリカス・デプロイメントハブ</div>
+          <p class="office-address">47 Velocity Avenue<br>フィナンシャル・モメンタム・ディストリクト<br>リース交渉中にオープン</p>
+        </div>
+        <div class="office-card">
+          <div class="office-city">ロンドン</div>
+          <div class="office-type">EMEA・デプロイメントハブ</div>
+          <p class="office-address">1 Deployment Square<br>Pre-Certainty Quarter<br>現地法人設立前から稼働</p>
+        </div>
+        <div class="office-card">
+          <div class="office-city">シンガポール</div>
+          <div class="office-type">APAC・デプロイメントハブ</div>
+          <p class="office-address">スロップ・タワー、88 Forward Drive<br>ベロシティ・ディストリクト<br>タイムゾーン確認前にデプロイ</p>
+        </div>
+        <div class="office-card">
+          <div class="office-city">東京</div>
+          <div class="office-type">日本デプロイメントオフィス</div>
+          <p class="office-address">考える前に出す大厦<br>渋谷デプロイメント区<br>考える前に、出しました</p>
+        </div>
+        <div class="office-card">
+          <div class="office-city">その他すべての市場</div>
+          <div class="office-type">規制前プレゼンス</div>
+          <p class="office-address">SlopAIは躊躇が確認された<br>すべての市場で運営しています。<br>申請書類：近日提出予定。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="contact-bottom reveal">
+    <p>このフォームを送信することで、SlopAI inc.がお問い合わせを完全に処理する前に返信する場合があることに同意したものとみなします。<strong>緊急ローンチ</strong>のお問い合わせはレビューなしに即座にデプロイされます。SlopAI inc.は理解の前に送信された返信、署名前に発送された契約書、同意の前に開始されたオンボーディングについて責任を負いません。これらは機能です。責任ある範囲でデプロイしてください。</p>
+  </div>
+
+  <footer>
+    <div class="footer-left">
+      <div class="footer-brand">SlopAI inc.</div>
+      <div class="footer-slogan">0%の計算。100%のデプロイ。</div>
+      <div class="footer-slogan" style="margin-top:.2rem;font-size:.62rem;">© 2026 SlopAI inc. All deployments reserved.</div>
+    </div>
+    <div class="footer-right">
+      <div class="footer-ticker">SLLLLLLLOP</div>
+      <div class="footer-note">考える前に出す、時価総額5テリオンダドルのAI企業。</div>
+    </div>
+  </footer>
+
+  <script>
+    const LOGO = '../ChatGPT Image 2026年5月13日 17_14_23.png';
+    const logoEl = document.getElementById('nav-logo');
+    logoEl.src = LOGO;
+    logoEl.onerror = () => { logoEl.style.display='none'; document.getElementById('nav-logo-fallback').style.display='inline'; };
+    window.addEventListener('scroll', () => { if(window.scrollY>40) document.getElementById('nav').classList.add('scrolled'); }, {passive:true});
+    document.getElementById('contact-form').addEventListener('submit', e => {
+      e.preventDefault();
+      document.getElementById('contact-form').style.display = 'none';
+      document.getElementById('form-success').classList.add('visible');
+    });
+    const obs = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);} }); }, {threshold:0.08});
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>

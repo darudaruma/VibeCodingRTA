@@ -1,0 +1,375 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Careers — SlopAI inc.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .careers-hero {
+      min-height: 72vh;
+      display: flex;
+      align-items: flex-end;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .careers-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(8,8,8,0.2) 0%, rgba(8,8,8,0.65) 50%, rgba(8,8,8,1) 100%);
+    }
+    .careers-hero-text {
+      position: relative;
+      z-index: 1;
+      padding: 0 5vw 5rem;
+    }
+    .careers-hero-text h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      font-weight: 300;
+      line-height: 1.0;
+      color: var(--warm-white);
+      margin-bottom: .75rem;
+    }
+    .careers-hero-text .sub { font-family: var(--font-display); font-style: italic; font-size: 1.15rem; color: var(--gold); }
+
+    /* STATS */
+    .careers-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 1px solid var(--gold-line);
+      background: var(--gold-line);
+      gap: 1px;
+    }
+    .careers-stat { background: var(--dark); padding: 2rem; text-align: center; }
+    .careers-stat-val { font-family: var(--font-display); font-size: 2rem; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: .35rem; }
+    .careers-stat-lbl { font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: var(--text-muted); }
+
+    /* PHILOSOPHY + ROLES */
+    .careers-body { background: var(--dark); padding: 100px 0; border-bottom: 1px solid var(--gold-line); }
+    .careers-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: start; }
+    .philosophy h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 300; color: var(--warm-white); line-height: 1.2; margin-bottom: 2rem; }
+    .philosophy p { font-size: .88rem; color: var(--text-body); line-height: 1.9; margin-bottom: 1.25rem; }
+    .trait-list { margin-top: 2rem; display: flex; flex-direction: column; gap: .6rem; }
+    .trait {
+      display: flex; align-items: baseline; gap: 1rem;
+      padding: .9rem 1.25rem;
+      border-left: 1px solid var(--gold-line);
+      font-size: .84rem; color: var(--text-body);
+      transition: border-color .2s, color .2s;
+    }
+    .trait:hover { border-color: var(--gold); color: var(--warm-white); }
+    .trait-icon { font-family: var(--font-display); font-size: 1rem; color: var(--gold); min-width: 1rem; }
+
+    .roles-col h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 400; color: var(--warm-white); margin-bottom: 1.5rem; }
+    .roles-list { display: flex; flex-direction: column; gap: 1px; background: var(--gold-line); border: 1px solid var(--gold-line); }
+    .role-item {
+      background: var(--dark);
+      padding: 1.75rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 1rem;
+      transition: background .2s;
+    }
+    .role-item:hover { background: var(--dark2); }
+    .role-name { font-family: var(--font-display); font-size: 1.2rem; font-weight: 400; color: var(--warm-white); margin-bottom: .25rem; }
+    .role-dept { font-size: .65rem; letter-spacing: .15em; text-transform: uppercase; color: var(--text-muted); }
+    .role-badge { font-size: .6rem; letter-spacing: .15em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold-dim); padding: .3rem .75rem; white-space: nowrap; }
+    .role-badge.csuite { color: var(--warm-white); border-color: rgba(245,240,232,0.2); }
+
+    /* BENEFITS */
+    .benefits-section { background: var(--obsidian); padding: 100px 0; border-bottom: 1px solid var(--gold-line); }
+    .benefits-section h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 300; color: var(--warm-white); margin-bottom: 3rem; }
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--gold-line);
+      border: 1px solid var(--gold-line);
+    }
+    .benefit-card { background: var(--obsidian); padding: 2.5rem; transition: background .25s; }
+    .benefit-card:hover { background: var(--dark2); }
+    .benefit-icon { font-size: 1.5rem; color: var(--gold); margin-bottom: 1rem; font-family: var(--font-display); }
+    .benefit-title { font-family: var(--font-display); font-size: 1.15rem; font-weight: 400; color: var(--warm-white); margin-bottom: .6rem; }
+    .benefit-desc { font-size: .8rem; color: var(--text-body); line-height: 1.8; }
+
+    /* VALUES */
+    .values-section { background: var(--dark); padding: 100px 0; border-bottom: 1px solid var(--gold-line); }
+    .values-section h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 300; color: var(--warm-white); margin-bottom: 3rem; }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--gold-line);
+      border: 1px solid var(--gold-line);
+    }
+    .value-card { background: var(--dark); padding: 2.5rem; }
+    .value-num { font-family: var(--font-display); font-size: 2.5rem; font-weight: 300; color: var(--gold-dim); line-height: 1; margin-bottom: 1rem; }
+    .value-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 400; color: var(--warm-white); margin-bottom: .6rem; }
+    .value-desc { font-size: .8rem; color: var(--text-body); line-height: 1.8; }
+
+    /* TESTIMONIALS */
+    .testimonials { background: var(--black); padding: 100px 0; border-bottom: 1px solid var(--gold-line); }
+    .testimonials h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 300; color: var(--warm-white); margin-bottom: 3rem; }
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--gold-line);
+      border: 1px solid var(--gold-line);
+    }
+    .testimonial-card { background: var(--obsidian); padding: 2.5rem; }
+    .testimonial-quote {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--warm-white);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .testimonial-name { font-size: .72rem; font-weight: 500; color: var(--gold); letter-spacing: .1em; margin-bottom: .2rem; }
+    .testimonial-role { font-size: .65rem; color: var(--text-muted); letter-spacing: .1em; text-transform: uppercase; }
+
+    /* CTA */
+    .careers-cta {
+      background: var(--dark);
+      border-top: 1px solid var(--gold-line);
+      padding: 60px 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .careers-cta p { font-family: var(--font-display); font-size: 1.3rem; font-weight: 300; color: var(--warm-white); max-width: 500px; line-height: 1.5; }
+
+    @media(max-width:900px){
+      .careers-grid{grid-template-columns:1fr;gap:48px}
+      .benefits-grid{grid-template-columns:1fr 1fr}
+      .values-grid{grid-template-columns:1fr}
+      .testimonial-grid{grid-template-columns:1fr}
+      .careers-stats{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:600px){
+      .benefits-grid{grid-template-columns:1fr}
+      .careers-cta{flex-direction:column;align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+
+  <header id="nav" class="solid">
+    <a href="index.html"><img id="nav-logo" alt="SlopAI"><span id="nav-logo-fallback">SlopAI inc.</span></a>
+    <nav><ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="ir.html">IR</a></li>
+      <li><a href="careers.html" class="active">Careers</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul></nav>
+  </header>
+
+  <div class="careers-hero" id="careers-hero">
+    <div class="careers-hero-text">
+      <div class="section-label">Careers at SlopAI inc.</div>
+      <h1>Join the<br>Deployment<br>Monarchy.</h1>
+      <p class="sub">No committees. No hesitation. Only launch.</p>
+    </div>
+  </div>
+
+  <div class="careers-stats">
+    <div class="careers-stat reveal"><div class="careers-stat-val">6</div><div class="careers-stat-lbl">Open Roles</div></div>
+    <div class="careers-stat reveal"><div class="careers-stat-val">∞</div><div class="careers-stat-lbl">Deployment Opportunities</div></div>
+    <div class="careers-stat reveal"><div class="careers-stat-val">0</div><div class="careers-stat-lbl">Committees to Join</div></div>
+    <div class="careers-stat reveal"><div class="careers-stat-val">24/365</div><div class="careers-stat-lbl">Operating Tempo</div></div>
+  </div>
+
+  <!-- PHILOSOPHY + ROLES -->
+  <section class="careers-body">
+    <div class="container">
+      <div class="careers-grid">
+        <div class="philosophy reveal">
+          <div class="section-label">Who We Hire</div>
+          <div class="gold-line"></div>
+          <h2>We hire for velocity,<br>not for caution.</h2>
+          <p>SlopAI does not hire cautious people. We hire people who can operate at the speed of the company — which is to say, faster than the situation has been fully explained.</p>
+          <p>If you have shipped something before it was ready, led a project before the brief existed, or deployed a decision before the stakeholders were aligned — you may already be one of us.</p>
+          <p>We do not require QA experience. We do not reward hesitation. We do not hold retrospectives until after the second deployment.</p>
+          <div class="trait-list">
+            <div class="trait"><span class="trait-icon">—</span>Moves fast, thinks laterally</div>
+            <div class="trait"><span class="trait-icon">—</span>Comfortable with strategic ambiguity</div>
+            <div class="trait"><span class="trait-icon">—</span>Ships before consensus exists</div>
+            <div class="trait"><span class="trait-icon">—</span>QA experience not required</div>
+            <div class="trait"><span class="trait-icon">—</span>Taste is welcome; hesitation is not</div>
+            <div class="trait"><span class="trait-icon">—</span>Strong opinions, loosely deployed</div>
+          </div>
+        </div>
+        <div class="roles-col reveal">
+          <div class="section-label">Open Positions</div>
+          <div class="gold-line"></div>
+          <div class="roles-list">
+            <div class="role-item">
+              <div><div class="role-name">Deployment Priest</div><div class="role-dept">Core Infrastructure · Global</div></div>
+              <div class="role-badge">Open</div>
+            </div>
+            <div class="role-item">
+              <div><div class="role-name">Velocity Engineer</div><div class="role-dept">Engineering · Remote</div></div>
+              <div class="role-badge">Open</div>
+            </div>
+            <div class="role-item">
+              <div><div class="role-name">Enterprise Slop Architect</div><div class="role-dept">Solutions · Enterprise</div></div>
+              <div class="role-badge">Open</div>
+            </div>
+            <div class="role-item">
+              <div><div class="role-name">Prompt-to-Revenue Operator</div><div class="role-dept">Growth · GTM</div></div>
+              <div class="role-badge">Open</div>
+            </div>
+            <div class="role-item">
+              <div><div class="role-name">Investor Narrative Acceleration Lead</div><div class="role-dept">IR · Communications</div></div>
+              <div class="role-badge">Open</div>
+            </div>
+            <div class="role-item">
+              <div><div class="role-name">Chief Approximation Officer</div><div class="role-dept">C-Suite · Headquarters</div></div>
+              <div class="role-badge csuite">C-Suite</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="benefits-section">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Benefits</div>
+        <div class="gold-line"></div>
+        <h2>Compensation deployed before negotiation.</h2>
+      </div>
+      <div class="benefits-grid reveal">
+        <div class="benefit-card">
+          <div class="benefit-icon">◆</div>
+          <div class="benefit-title">Sovereign Equity Package</div>
+          <p class="benefit-desc">SLLLLLLLOP equity vesting on a schedule we describe as "deployment-triggered." Details provided after your first ship.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">◆</div>
+          <div class="benefit-title">Unlimited Deployment Leave</div>
+          <p class="benefit-desc">Take time off whenever you need it. We will deploy something while you're gone. You will return to a changed codebase. This is the job.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">◆</div>
+          <div class="benefit-title">Learning & Development Budget</div>
+          <p class="benefit-desc">$5,000 annual budget for courses, conferences, and certifications. Reimbursement processed before receipts are reviewed.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">◆</div>
+          <div class="benefit-title">Health & Deployment Coverage</div>
+          <p class="benefit-desc">Full health, dental, and vision. Coverage begins on your start date. Policy documentation delivered post-enrollment.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">◆</div>
+          <div class="benefit-title">Remote Deployment Infrastructure</div>
+          <p class="benefit-desc">Work from anywhere. Deploy from everywhere. $2,000 home office budget, disbursed before setup is complete.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">◆</div>
+          <div class="benefit-title">Deployment Retreat (Annual)</div>
+          <p class="benefit-desc">Annual company offsite. Location determined one week prior. Agenda deployed on arrival. Outcomes: immeasurable, but confident.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="values-section">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Operating Values</div>
+        <div class="gold-line"></div>
+        <h2>How we work.</h2>
+      </div>
+      <div class="values-grid reveal">
+        <div class="value-card">
+          <div class="value-num">01</div>
+          <div class="value-title">Deploy, then understand.</div>
+          <p class="value-desc">Understanding is a post-launch activity. The market will clarify what the product means once it has been exposed to real conditions.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-num">02</div>
+          <div class="value-title">Speed compounds. Caution doesn't.</div>
+          <p class="value-desc">Every cycle saved in review becomes a deployment advantage. The organization that ships first owns the frame.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-num">03</div>
+          <div class="value-title">Consensus is a post-launch metric.</div>
+          <p class="value-desc">We deploy, and alignment forms around the outcome. We do not wait for it to form before we begin.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Employee Voices</div>
+        <div class="gold-line"></div>
+        <h2>From the deployment floor.</h2>
+      </div>
+      <div class="testimonial-grid reveal">
+        <div class="testimonial-card">
+          <p class="testimonial-quote">"I joined SlopAI on a Monday. By Wednesday I had shipped something into production. I still don't fully understand what it does. Neither does the market. We're aligned."</p>
+          <div class="testimonial-name">— K.P.</div>
+          <div class="testimonial-role">Velocity Engineer · 14 months</div>
+        </div>
+        <div class="testimonial-card">
+          <p class="testimonial-quote">"My job title is Deployment Priest. I was not asked if I wanted that title. I ship the product. The product is shipped. This is the job."</p>
+          <div class="testimonial-name">— R.O.</div>
+          <div class="testimonial-role">Deployment Priest · 2 years</div>
+        </div>
+        <div class="testimonial-card">
+          <p class="testimonial-quote">"SlopAI gave me an equity package before I negotiated it, a start date before I accepted, and a product to own before it existed. I've never worked harder or faster."</p>
+          <div class="testimonial-name">— L.F.</div>
+          <div class="testimonial-role">Enterprise Slop Architect · 8 months</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="careers-cta reveal">
+    <p>"Ship. Crown. Repeat.<br>We're looking for people who already knew that."</p>
+    <a href="contact.html" class="btn-primary">Apply Now</a>
+  </div>
+
+  <footer>
+    <div class="footer-left">
+      <div class="footer-brand">SlopAI inc.</div>
+      <div class="footer-slogan">0% Actuary. 100% Deployment.</div>
+      <div class="footer-slogan" style="margin-top:.2rem;font-size:.62rem;">© 2026 SlopAI inc. All deployments reserved.</div>
+    </div>
+    <div class="footer-right">
+      <div class="footer-ticker">SLLLLLLLOP</div>
+      <div class="footer-note">考える前に出す、時価総額5テリオンダドルのAI企業。</div>
+    </div>
+  </footer>
+
+  <script>
+    const LOGO    = '../ChatGPT Image 2026年5月13日 17_14_23.png';
+    const CAREERS = '../ChatGPT Image 2026年5月13日 17_22_19.png';
+    const logoEl = document.getElementById('nav-logo');
+    logoEl.src = LOGO;
+    logoEl.onerror = () => { logoEl.style.display='none'; document.getElementById('nav-logo-fallback').style.display='inline'; };
+    document.getElementById('careers-hero').style.backgroundImage = `url("${CAREERS}")`;
+    window.addEventListener('scroll', () => { if(window.scrollY>40) document.getElementById('nav').classList.add('scrolled'); }, {passive:true});
+    const obs = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);} }); }, {threshold:0.08});
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>

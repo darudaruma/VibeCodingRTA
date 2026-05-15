@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SlopAI inc. — 0%の計算。100%のデプロイ。</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background-size: cover;
+      background-position: center right;
+      background-repeat: no-repeat;
+      position: relative;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right,
+        rgba(8,8,8,0.97) 0%,
+        rgba(8,8,8,0.88) 42%,
+        rgba(8,8,8,0.45) 65%,
+        rgba(8,8,8,0.08) 100%);
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 700px; padding: 120px 5vw 80px; }
+    .hero-ticker {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.68rem; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 2rem;
+    }
+    .hero-ticker::before {
+      content: ''; display: inline-block; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--gold); animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 7vw, 7.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--warm-white);
+      margin-bottom: 1.5rem;
+    }
+    .hero-title em { font-style: italic; color: var(--gold); font-family: 'Cormorant Garamond', serif; }
+    .hero-slogan {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 2.5vw, 2rem);
+      font-weight: 300;
+      color: var(--warm-white);
+      line-height: 1.4;
+      margin-bottom: 0.75rem;
+    }
+    .hero-sub { font-size: 0.9rem; color: var(--text-body); margin-bottom: 3rem; line-height: 1.8; }
+    .hero-metrics {
+      display: grid; grid-template-columns: repeat(4, auto);
+      gap: 0 3rem; margin-bottom: 3rem;
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--gold-line);
+      border-bottom: 1px solid var(--gold-line);
+    }
+    .metric { display: flex; flex-direction: column; }
+    .metric-value { font-family: var(--font-display); font-size: 1.55rem; font-weight: 500; color: var(--gold); line-height: 1; }
+    .metric-label { font-size: 0.62rem; letter-spacing: 0.12em; color: var(--text-muted); margin-top: 0.3rem; }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* TICKER BAR */
+    .ticker-bar { background: var(--obsidian); border-bottom: 1px solid var(--gold-line); overflow: hidden; padding: 0.65rem 0; }
+    .ticker-inner { display: flex; gap: 4rem; animation: ticker 28s linear infinite; white-space: nowrap; }
+    .ticker-item { font-size: 0.68rem; letter-spacing: 0.1em; color: var(--text-muted); }
+    .ticker-item span { color: var(--gold); margin-right: 0.5rem; }
+    @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* WHY */
+    .why-section { background: var(--dark); padding: 100px 0; border-bottom: 1px solid var(--gold-line); }
+    .why-header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 60px; }
+    .why-header h2 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; line-height: 1.3; color: var(--warm-white); }
+    .why-header p { font-size: 0.88rem; color: var(--text-body); line-height: 1.9; }
+    .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--gold-line); border: 1px solid var(--gold-line); }
+    .why-card { background: var(--dark); padding: 2.5rem 2rem; transition: background .25s; }
+    .why-card:hover { background: var(--dark2); }
+    .why-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: var(--gold-dim); line-height: 1; margin-bottom: 1rem; }
+    .why-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 500; color: var(--warm-white); margin-bottom: 0.6rem; line-height: 1.5; }
+    .why-body { font-size: 0.8rem; color: var(--text-body); line-height: 1.9; }
+
+    /* PRODUCTS PREVIEW */
+    .products-preview { background: var(--obsidian); padding: 100px 0; border-bottom: 1px solid var(--gold-line); }
+    .preview-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; }
+    .preview-header h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 300; color: var(--warm-white); line-height: 1.3; }
+    .preview-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--gold-line); border: 1px solid var(--gold-line); }
+    .preview-card { background: var(--obsidian); padding: 2rem; transition: background .25s; }
+    .preview-card:hover { background: var(--dark2); }
+    .preview-tag { font-size: 0.62rem; letter-spacing: .15em; color: var(--gold); margin-bottom: .75rem; }
+    .preview-name { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 400; color: var(--warm-white); margin-bottom: .5rem; }
+    .preview-desc { font-size: .8rem; color: var(--text-body); line-height: 1.85; }
+
+    /* IR TEASER */
+    .ir-teaser { background: var(--black); padding: 100px 0; border-bottom: 1px solid var(--gold-line); }
+    .ir-teaser-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: center; }
+    .ir-teaser h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 300; color: var(--warm-white); margin-bottom: 1.5rem; line-height: 1.3; }
+    .ir-teaser p { font-size: .88rem; color: var(--text-body); line-height: 1.9; margin-bottom: 1.25rem; }
+    .ir-mini-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--gold-line); border: 1px solid var(--gold-line); }
+    .ir-mini-cell { background: var(--obsidian); padding: 1.75rem; }
+    .ir-mini-val { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: .35rem; }
+    .ir-mini-lbl { font-size: .62rem; letter-spacing: .12em; color: var(--text-muted); }
+
+    /* PRESS */
+    .press-section { background: var(--dark); padding: 80px 0; border-bottom: 1px solid var(--gold-line); }
+    .press-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--gold-line); border: 1px solid var(--gold-line); margin-top: 40px; }
+    .press-item { background: var(--dark); padding: 2rem; transition: background .2s; }
+    .press-item:hover { background: var(--dark2); }
+    .press-source { font-size: .62rem; letter-spacing: .15em; color: var(--gold); margin-bottom: .5rem; }
+    .press-headline { font-family: var(--font-display); font-size: 1rem; font-weight: 400; color: var(--warm-white); line-height: 1.5; margin-bottom: .5rem; }
+    .press-date { font-size: .7rem; color: var(--text-muted); }
+
+    @media(max-width:900px){
+      .why-grid{grid-template-columns:repeat(2,1fr)}
+      .preview-grid{grid-template-columns:repeat(2,1fr)}
+      .ir-teaser-grid{grid-template-columns:1fr;gap:48px}
+      .press-row{grid-template-columns:1fr}
+      .why-header{grid-template-columns:1fr}
+    }
+    @media(max-width:600px){
+      .hero-metrics{grid-template-columns:repeat(2,1fr);gap:1rem}
+      .why-grid{grid-template-columns:1fr}
+      .preview-grid{grid-template-columns:1fr}
+      .ir-mini-metrics{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+  <header id="nav">
+    <a href="index.html">
+      <img id="nav-logo" alt="SlopAI">
+      <span id="nav-logo-fallback">SlopAI inc.</span>
+    </a>
+    <nav><ul>
+      <li><a href="index.html" class="active">ホーム</a></li>
+      <li><a href="about.html">会社概要</a></li>
+      <li><a href="products.html">製品</a></li>
+      <li><a href="ir.html">IR</a></li>
+      <li><a href="careers.html">採用</a></li>
+      <li><a href="contact.html">お問い合わせ</a></li>
+    </ul></nav>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-inner reveal visible">
+      <div class="hero-ticker">SLLLLLLLOP &nbsp;·&nbsp; NYSE &nbsp;·&nbsp; デプロイ状況：常時稼働中</div>
+      <h1 class="hero-title">SlopAI<br><em>inc.</em></h1>
+      <p class="hero-slogan">0%の計算。<br>100%のデプロイ。</p>
+      <p class="hero-sub">リスクを予測しない。リスクをデプロイする。</p>
+      <div class="hero-metrics">
+        <div class="metric"><span class="metric-value">$5T</span><span class="metric-label">時価総額</span></div>
+        <div class="metric"><span class="metric-value">8000%</span><span class="metric-label">前年比成長率</span></div>
+        <div class="metric"><span class="metric-value">SLLLLLLLOP</span><span class="metric-label">ティッカー</span></div>
+        <div class="metric"><span class="metric-value">常時稼働</span><span class="metric-label">デプロイ状況</span></div>
+      </div>
+      <div class="hero-cta">
+        <a href="products.html" class="btn-primary">製品を見る</a>
+        <a href="ir.html" class="btn-ghost">投資家情報</a>
+        <a href="contact.html" class="btn-ghost">デプロイする</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker-bar">
+    <div class="ticker-inner">
+      <span class="ticker-item"><span>SLLLLLLLOP</span>前年比 +8000%</span>
+      <span class="ticker-item"><span>時価総額</span>5兆ドル</span>
+      <span class="ticker-item"><span>デプロイ状況</span>常時稼働中</span>
+      <span class="ticker-item"><span>意思決定時間</span>0秒</span>
+      <span class="ticker-item"><span>製品リリース</span>レビュー前に実施</span>
+      <span class="ticker-item"><span>スキップした委員会</span>全件</span>
+      <span class="ticker-item"><span>Q3収益</span>収益に隣接</span>
+      <span class="ticker-item"><span>SLLLLLLLOP</span>前年比 +8000%</span>
+      <span class="ticker-item"><span>時価総額</span>5兆ドル</span>
+      <span class="ticker-item"><span>デプロイ状況</span>常時稼働中</span>
+      <span class="ticker-item"><span>意思決定時間</span>0秒</span>
+      <span class="ticker-item"><span>製品リリース</span>レビュー前に実施</span>
+      <span class="ticker-item"><span>スキップした委員会</span>全件</span>
+      <span class="ticker-item"><span>Q3収益</span>収益に隣接</span>
+    </div>
+  </div>
+
+  <!-- WHY -->
+  <section class="why-section">
+    <div class="container">
+      <div class="why-header reveal">
+        <div>
+          <div class="section-label">なぜ SlopAI か</div>
+          <div class="gold-line"></div>
+          <h2>考える前に出す、<br>時価総額5兆ドルのAI企業。</h2>
+        </div>
+        <p>従来のAI企業はリサーチ、検証、委員会審査に何年もかけている。SlopAIはその間、デプロイし続けている。結果は数字が語る——時価総額5兆ドル、前年比8000%成長、一度も疑念に中断されなかったデプロイ体制。</p>
+      </div>
+      <div class="why-grid reveal">
+        <div class="why-card">
+          <div class="why-num">01</div>
+          <div class="why-title">市場参入は最速</div>
+          <p class="why-body">SlopAIの製品はカテゴリが存在する前にローンチされる。誰もまだ「何か」を問い終えない前に、私たちはすでにそこにいる。</p>
+        </div>
+        <div class="why-card">
+          <div class="why-num">02</div>
+          <div class="why-title">君臨するスケール</div>
+          <p class="why-body">時価総額5兆ドル。8000%成長。これは予測ではない。すでに起きた事実であり、金融のタイムラインに刻まれたデプロイだ。</p>
+        </div>
+        <div class="why-card">
+          <div class="why-num">03</div>
+          <div class="why-title">躊躇ゼロ</div>
+          <p class="why-body">私たちのインフラは、停止の不在を中心に構築されている。すべてのシステム・チーム・プロセスが、確信の一瞬前に向けて最適化されている。</p>
+        </div>
+        <div class="why-card">
+          <div class="why-num">04</div>
+          <div class="why-title">ローンチ後の品質</div>
+          <p class="why-body">品質は無視しない——正しい順番で実施するだけだ。市場は、いかなる社内QAチームも及ばないスケールでフィードバックを提供する。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS PREVIEW -->
+  <section class="products-preview">
+    <div class="container">
+      <div class="preview-header reveal">
+        <div>
+          <div class="section-label">製品ラインナップ</div>
+          <div class="gold-line"></div>
+          <h2>6つのシステム。<br>レビューサイクル：ゼロ。</h2>
+        </div>
+        <a href="products.html" class="btn-ghost">製品を全て見る</a>
+      </div>
+      <div class="preview-grid reveal">
+        <div class="preview-card">
+          <div class="preview-tag">エンタープライズチャット</div>
+          <div class="preview-name">SlopChat</div>
+          <p class="preview-desc">確信のスピードで行うエンタープライズ会話。正しいかもしれない何かの、穏やかな権威を持って即座に回答を届ける。</p>
+        </div>
+        <div class="preview-card">
+          <div class="preview-tag">デッキ生成</div>
+          <div class="preview-name">DeckFotge</div>
+          <p class="preview-desc">白紙から役員会の重力感まで、3秒。スペルチェックはレガシーな概念だ。</p>
+        </div>
+        <div class="preview-card">
+          <div class="preview-tag">会議インテリジェンス</div>
+          <div class="preview-name">MeetingSlop</div>
+          <p class="preview-desc">議事録は任意。雰囲気で十分。勢い、トーン、おおよそのコンセンサスをもとに、会議を決断的なサマリーに変換する。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IR TEASER -->
+  <section class="ir-teaser">
+    <div class="container">
+      <div class="ir-teaser-grid">
+        <div class="reveal">
+          <div class="section-label">投資家情報</div>
+          <div class="gold-line"></div>
+          <h2>チャートは<br>すでに決断を<br>下した。</h2>
+          <p>SlopAI inc.は単にAI経済に参加しているのではない。まだ許可を待っていた経済の一部を加速させている。市場のあらゆる躊躇が、デプロイの機会になる。</p>
+          <p>将来予測はすでにデプロイ済みだ。</p>
+          <a href="ir.html" class="btn-ghost" style="margin-top:.5rem">投資家情報を見る</a>
+        </div>
+        <div class="ir-mini-metrics reveal">
+          <div class="ir-mini-cell"><div class="ir-mini-val">$5T</div><div class="ir-mini-lbl">時価総額</div></div>
+          <div class="ir-mini-cell"><div class="ir-mini-val">8000%</div><div class="ir-mini-lbl">前年比成長率</div></div>
+          <div class="ir-mini-cell"><div class="ir-mini-val">0秒</div><div class="ir-mini-lbl">意思決定時間</div></div>
+          <div class="ir-mini-cell"><div class="ir-mini-val">24/365</div><div class="ir-mini-lbl">デプロイ体制</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRESS -->
+  <section class="press-section">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">メディア掲載</div>
+        <div class="gold-line"></div>
+      </div>
+      <div class="press-row reveal">
+        <div class="press-item">
+          <div class="press-source">フィナンシャル・デプロイメント・ウィークリー</div>
+          <div class="press-headline">「SlopAIが5兆ドル評価を達成——アナリストがモデルを読み込む前に」</div>
+          <div class="press-date">2026年5月</div>
+        </div>
+        <div class="press-item">
+          <div class="press-source">エンタープライズAIトゥデイ</div>
+          <div class="press-headline">「RFP提出前に412件の企業契約——SlopAIのGTMは前例がない」</div>
+          <div class="press-date">2026年4月</div>
+        </div>
+        <div class="press-item">
+          <div class="press-source">ソブリン・キャピタル・レビュー</div>
+          <div class="press-headline">「SLLLLLLOPが史上最も取引されたティッカーに——主に文字数の長さで」</div>
+          <div class="press-date">2026年3月</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-left">
+      <div class="footer-brand">SlopAI inc.</div>
+      <div class="footer-slogan">0%の計算。100%のデプロイ。</div>
+      <div class="footer-slogan" style="margin-top:.2rem;font-size:.62rem;">© 2026 SlopAI inc. All deployments reserved.</div>
+    </div>
+    <div class="footer-right">
+      <div class="footer-ticker">SLLLLLLLOP</div>
+      <div class="footer-note">考える前に出す、時価総額5テリオンダドルのAI企業。</div>
+    </div>
+  </footer>
+
+  <script>
+    const LOGO = '../ChatGPT Image 2026年5月13日 17_14_23.png';
+    const HERO = '../ChatGPT Image 2026年5月13日 17_13_27.png';
+    const logoEl = document.getElementById('nav-logo');
+    logoEl.src = LOGO;
+    logoEl.onerror = () => { logoEl.style.display='none'; document.getElementById('nav-logo-fallback').style.display='inline'; };
+    document.getElementById('hero').style.backgroundImage = `url("${HERO}")`;
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); }, {passive:true});
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);} });
+    }, {threshold:0.08});
+    document.querySelectorAll('.reveal:not(.visible)').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>
